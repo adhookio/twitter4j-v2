@@ -42,6 +42,18 @@ dependencies {
 
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            // Optional: Customize coordinates
+            groupId = project.group
+            artifactId = 'twitter4j-v2-support'
+            version = project.version
+        }
+    }
+}
 //test {
 //    testLogging {
 //        events 'standard_out', 'standard_error'
