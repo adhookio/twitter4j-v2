@@ -1,3 +1,6 @@
+group = 'com.github.adhookio'
+version = '1.0.0'
+
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("java-library")
