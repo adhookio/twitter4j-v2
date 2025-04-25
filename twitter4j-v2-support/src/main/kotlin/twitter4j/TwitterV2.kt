@@ -928,5 +928,5 @@ interface TwitterV2 {
 
     @Throws(TwitterException::class)
     fun uploadMedia(file: File): LongResponse =
-        uploadMedia(Files.probeContentType(file.toPath()), file.name, file.inputStream())
+        uploadMedia(null, Files.probeContentType(file.toPath()), file.name, file.inputStream())
 }
