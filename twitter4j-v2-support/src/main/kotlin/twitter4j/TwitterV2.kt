@@ -915,7 +915,7 @@ interface TwitterV2 {
     ): BooleanResponse
 
     @Throws(TwitterException::class)
-    fun uploadMediaChunkedInit(size: Long, mediaType: String): LongResponse
+    fun uploadMediaChunkedInit(size: Long, mediaType: String, mediaCategory: String): LongResponse
 
     @Throws(TwitterException::class)
     fun uploadMediaChunkedAppend(mediaId: Long, segmentIndex: Long, fileName: String, media: InputStream)
@@ -924,7 +924,7 @@ interface TwitterV2 {
     fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse
 
     @Throws(TwitterException::class)
-    fun uploadMedia(mediaType: String, fileName: String, media: InputStream): LongResponse
+    fun uploadMedia(mediaCategory: String, mediaType: String, fileName: String, media: InputStream): LongResponse
 
     @Throws(TwitterException::class)
     fun uploadMedia(file: File): LongResponse =
