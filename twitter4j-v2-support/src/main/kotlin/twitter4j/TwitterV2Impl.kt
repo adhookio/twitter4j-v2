@@ -1393,10 +1393,11 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     }
 
     @Throws(TwitterException::class)
-    override fun uploadMediaChunkedInit(size: Long, mediaType: String): LongResponse {
+    override fun uploadMediaChunkedInit(size: Long, mediaType: String, mediaCategory: String): LongResponse {
         val params = arrayListOf(
             HttpParameter("command", "INIT"),
             HttpParameter("media_type", mediaType),
+            HttpParameter("media_category", mediaCategory),
             HttpParameter("total_bytes", size.toString()),
         )
 
@@ -1434,7 +1435,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     }
 
     @Throws(TwitterException::class)
-    override fun uploadMedia(mediaType: String, fileName: String, media: InputStream): LongResponse {
+    override fun uploadMedia(mediaCategory: String, mediaType: String, fileName: String, media: InputStream): LongResponse {
         val dataBytes = try {
             media.readBytes().also {
                 if (it.size > MAX_IMAGE_SIZE && mediaType.startsWith("image/")) {
@@ -1449,7 +1450,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
             throw TwitterException("Failed to download the file.", ioe)
         }
 
-        val response = uploadMediaChunkedInit(dataBytes.size.toLong(), mediaType)
+        val response = uploadMediaChunkedInit(dataBytes.size.toLong(), mediaType, mediaCategory)
         val dataInputStream = ByteArrayInputStream(dataBytes)
         var segmentIndex = 0L
 
