@@ -1395,14 +1395,13 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedInit(size: Long, mediaType: String, mediaCategory: String): LongResponse {
         val params = arrayListOf(
-            HttpParameter("command", "INIT"),
             HttpParameter("media_type", mediaType),
              HttpParameter("media_category", mediaCategory),
             HttpParameter("total_bytes", size.toString()),
         )
 
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/initialize", params.toTypedArray()),
             conf,
             "id"
         )
@@ -1411,24 +1410,22 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedAppend(mediaId: Long, segmentIndex: Long, fileName: String, media: InputStream) {
         val params = arrayListOf(
-            HttpParameter("command", "APPEND"),
             HttpParameter("media_id", mediaId.toString()),
             HttpParameter("segment_index", segmentIndex),
             HttpParameter("media", fileName, media),
         )
 
-        post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray())
+        post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/append", params.toTypedArray())
     }
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse {
         val params = arrayListOf(
-            HttpParameter("command", "FINALIZE"),
             HttpParameter("media_id", mediaId.toString())
         )
 
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize", params.toTypedArray()),
             conf,
             "id"
         )
