@@ -1397,7 +1397,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         val json = JSONObject()
         json.put("media_type", mediaType)
         json.put("media_category", mediaCategory)
-        json.put("total_bytes", size.toString())
+        json.put("total_bytes", size)
 
         return V2ResponseFactory().createLongResponse(
             post(conf.v2Configuration.baseURL + "media/upload/initialize", json),
