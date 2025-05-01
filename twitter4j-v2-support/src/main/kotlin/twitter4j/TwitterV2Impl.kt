@@ -1409,7 +1409,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedAppend(mediaId: Long, segmentIndex: Long, fileName: String, media: InputStream) {
         val params = arrayListOf(
-            HttpParameter("media_id", mediaId.toString()),
             HttpParameter("segment_index", segmentIndex),
             HttpParameter("media", fileName, media),
         )
@@ -1419,10 +1418,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse {
-        val params = arrayListOf(
-            HttpParameter("media_id", mediaId.toString())
-        )
-
+        val params = emptyArray()
         return V2ResponseFactory().createLongResponse(
             post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize", params.toTypedArray()),
             conf,
