@@ -1394,14 +1394,13 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedInit(size: Long, mediaType: String, mediaCategory: String): LongResponse {
-        val params = arrayListOf(
-            HttpParameter("media_type", mediaType),
-             HttpParameter("media_category", mediaCategory),
-            HttpParameter("total_bytes", size.toString()),
-        )
+        val json = JSONObject()
+        json.put("media_type", mediaType)
+        json.put("media_category", mediaCategory)
+        json.put("total_bytes", size.toString())
 
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload/initialize", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/initialize", json),
             conf,
             "id"
         )
