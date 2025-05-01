@@ -1420,7 +1420,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     override fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse {
         val params = emptyArray()
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize", params),
             conf,
             "id"
         )
