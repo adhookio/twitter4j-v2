@@ -1418,9 +1418,8 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse {
-        val params = emptyArray()
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize", params),
+            post(conf.v2Configuration.baseURL + "media/upload/" + mediaId.toString() + "/finalize"),
             conf,
             "id"
         )
@@ -1478,6 +1477,14 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         twitter.ensureAuthorizationEnabled()
 
         return twitter.http.post(url, params, twitter.auth, twitter)
+    }
+
+     private fun post(url: String): HttpResponse {
+
+        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+        twitter.ensureAuthorizationEnabled()
+
+        return twitter.http.post(url, emptyArray(), twitter.auth, twitter)
     }
 
     private fun delete(url: String): HttpResponse {
