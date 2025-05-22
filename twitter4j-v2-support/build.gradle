@@ -30,7 +30,7 @@ signing {
 
 dependencies {
 
-    implementation "org.twitter4j:twitter4j-core:4.1.2"
+    implementation "org.twitter4j:twitter4j-core:4.0.7"
 
     // Align versions of all Kotlin components
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
