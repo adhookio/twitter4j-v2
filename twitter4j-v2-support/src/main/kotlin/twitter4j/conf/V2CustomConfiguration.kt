@@ -47,12 +47,12 @@ class V2CustomConfiguration {
 
         // then, override with /twitter4j.properties in the classpath
         loadProperties(
-            props, twitter4j.conf.Configuration::class.java.getResourceAsStream("/$TWITTER4J_PROPERTIES")
+            props, twitter4j.Configuration::class.java.getResourceAsStream("/$TWITTER4J_PROPERTIES")
         )
 
         // then, override with /WEB/INF/twitter4j.properties in the classpath
         loadProperties(
-            props, twitter4j.conf.Configuration::class.java.getResourceAsStream("/WEB-INF/$TWITTER4J_PROPERTIES")
+            props, twitter4j.Configuration::class.java.getResourceAsStream("/WEB-INF/$TWITTER4J_PROPERTIES")
         )
     }
 
